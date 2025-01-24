@@ -17,3 +17,5 @@ const themeSlice = createSlice({
 
 export const { toggleTheme } = themeSlice.actions;
 export default themeSlice.reducer;
+
+https://github.com/Uday2902/event-management-system.git
