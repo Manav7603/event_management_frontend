@@ -10,20 +10,21 @@ import FeedbackIcon from "@mui/icons-material/Feedback";
 import EventIcon from "@mui/icons-material/Event";
 import AddIcon from "@mui/icons-material/Add";
 import { AppProvider, type Navigation } from "@toolpad/core/AppProvider";
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { useDemoRouter } from "@toolpad/core/internal";
 import OrganizerEventCard from "../cards/OrganizerEventCard";
-import events from "./events"; // Assuming you already have a list of events imported
-import InfiniteScroll from "react-infinite-scroll-component";
+import Events from "./Events";
 import NewEventForm from "../forms/NewEventForm";
 import Modal from "@mui/material/Modal";
+import OrganizerParticipantsList from "./OrganizerParticipantsList";
 
 const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 'auto',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -62,6 +63,11 @@ const NAVIGATION: Navigation = [
         title: "On-going Events",
       },
     ],
+  },
+  {
+    segment: "participants",
+    title: "Participants",
+    icon: <PeopleAltIcon />,
   },
   {
     segment: "order",
@@ -118,65 +124,22 @@ const demoTheme = createTheme({
 });
 
 function DemoPageContent({ pathname }: { pathname: string }) {
-  const [visibleEvents, setVisibleEvents] = React.useState(events.slice(0, 9)); // Load the first 9 events initially
-  const [hasMore, setHasMore] = React.useState(true);
-  const [open, setOpen] = React.useState(true);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-
-  const loadMoreEvents = () => {
-    // Check if we've reached the end of the events list
-    if (visibleEvents.length >= events.length) {
-      setHasMore(false);
-      return;
-    }
-
-    // Simulate an async operation like fetching more events
-    setTimeout(() => {
-      setVisibleEvents((prev) => [
-        ...prev,
-        ...events.slice(prev.length, prev.length + 9),
-      ]);
-    }, 1500); // Delay to simulate async fetching
-  };
-
   const renderContent = () => {
+    console.log("Pathname -> ", pathname)
     switch (pathname) {
       case "/dashboard":
         return <Typography variant="h4">Welcome to the Dashboard</Typography>;
       case "/events/all-events":
-        return (
-          <InfiniteScroll
-            dataLength={visibleEvents.length}
-            next={loadMoreEvents}
-            hasMore={hasMore}
-            loader={<h4>Loading...</h4>}
-            endMessage={<p>No more events to display</p>}
-          >
-            <Box
-              sx={{
-                display: "grid",
-                gridTemplateColumns: {
-                  xs: "1fr",
-                  sm: "repeat(3, 1fr)",
-                },
-                gap: 2,
-                p: 2,
-              }}
-            >
-              {visibleEvents.map((event) => (
-                <OrganizerEventCard key={event.id} event={event} />
-              ))}
-            </Box>
-          </InfiniteScroll>
-        );
+        return <Events type="all-events" />;
       case "/events/past-events":
-        return <Typography variant="h4">Past Events</Typography>;
+        console.log("changed to past")
+        return <Events type="completed" />;
       case "/events/upcoming-events":
-        return <Typography variant="h4">Upcoming Events</Typography>;
+        return <Events type="upcoming" />;
       case "/events/ongoing-events":
-        return <Typography variant="h4">Ongoing Events</Typography>;
+        return <Events type="ongoing" />;
+      case "/participants":
+        return <Box sx={{ margin: '4rem' }} ><OrganizerParticipantsList /></Box>
       case "/order/ticket-sales":
         return <Typography variant="h4">Ticket Sales</Typography>;
       case "/order/refunds":
@@ -184,20 +147,7 @@ function DemoPageContent({ pathname }: { pathname: string }) {
       case "/order/invoices":
         return <Typography variant="h4">Invoices</Typography>;
       case "/create-event":
-        return (
-          <div>
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>/
-              <NewEventForm />
-            </Box>
-            </Modal>
-          </div>
-        );
+        return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} ><NewEventForm /></Box>;
       case "/feedback-&-surveys":
         return <Typography variant="h4">Feedback & Surveys</Typography>;
       default:

@@ -26,7 +26,7 @@ export default function OrganizerEventCard({ event }) {
       <CardMedia
         component="img"
         sx={{
-          width: { xs: "100%", sm: 182 },
+          width: { xs: "100%", sm: "100%", md: "100%" },
           height: 200,
           width: "100%",
           objectFit: "cover",

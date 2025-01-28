@@ -9,6 +9,9 @@ import "./App.css";
 import OrganizerDashboard from "./components/organizer-dashboard/OrganizerDashboard";
 import OrganizerEventCard from "./components/cards/OrganizerEventCard";
 import NewEventForm from "./components/forms/NewEventForm";
+import ParticipantsTable from "./components/tables/ParticipantsTable";
+import OrganizerParticipantsList from "./components/organizer-dashboard/OrganizerParticipantsList";
+import BasicPopover from "./components/BasicPopover";
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -28,6 +31,9 @@ function App() {
             />
             <Route path="/cards" element={<OrganizerEventCard />} />
             <Route path="/form" element={<NewEventForm />} />
+            <Route path="/table" element={<ParticipantsTable />} />
+            <Route path="/all" element={<OrganizerParticipantsList />} />
+            <Route path="/tooltip" element={<BasicPopover />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
