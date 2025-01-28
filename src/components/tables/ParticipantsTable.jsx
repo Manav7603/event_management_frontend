@@ -7,6 +7,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import Popover from '@mui/material/Popover';
+import OrganizerEventCard from '../cards/OrganizerEventCard';
 
 const columns = [
     { id: 'name', label: 'Name', minWidth: 170 },
@@ -19,12 +21,27 @@ function createData(name, age, gender, attended) {
     return { name, age, gender, attended };
 }
 
-
 export default function ParticipantsTable({ data }) {
     const rows = data.map((entry) => createData(entry.name, entry.age, entry.gender, entry.attended));
-    console.log(rows)
+
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [selectedEvent, setSelectedEvent] = React.useState(null);
+
+    const handleClick = (event, eventData) => {
+        setAnchorEl(event.currentTarget); // Set the anchor element
+        setSelectedEvent(eventData); // Set the event data for Popover
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null); // Reset the anchor element
+        setSelectedEvent(null); // Reset selected event
+    };
+
+    const open = Boolean(anchorEl);
+    const popoverId = open ? 'participant-popover' : undefined;
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -35,17 +52,25 @@ export default function ParticipantsTable({ data }) {
         setPage(0);
     };
 
+    const sampleEvent = {
+        id: 1,
+        title: 'Tech Fest 2025',
+        status: 'upcoming',
+        description: 'A grand celebration of technology and innovation.',
+        date: 'March 10, 2025',
+        location: 'Bangalore',
+        numberOfParticipants: 5000,
+        image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=286',
+    };
+
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-            <TableContainer sx={{ maxHeight: 440, width: "100%", height: "50%" }}>
+            <TableContainer sx={{ maxHeight: 440, width: '100%', height: '50%' }}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
                         <TableRow>
                             {columns.map((column) => (
-                                <TableCell
-                                    key={column.id}
-                                    style={{ minWidth: column.minWidth }}
-                                >
+                                <TableCell key={column.id} style={{ minWidth: column.minWidth }}>
                                     {column.label}
                                 </TableCell>
                             ))}
@@ -54,20 +79,27 @@ export default function ParticipantsTable({ data }) {
                     <TableBody>
                         {rows
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row) => {
-                                return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.name}>
-                                        {columns.map((column) => {
-                                            const value = row[column.id];
-                                            return (
-                                                <TableCell key={column.id}>
-                                                    {value}
-                                                </TableCell>
-                                            );
-                                        })}
-                                    </TableRow>
-                                );
-                            })}
+                            .map((row) => (
+                                <TableRow
+                                    hover
+                                    role="checkbox"
+                                    tabIndex={-1}
+                                    key={row.name}
+                                    onClick={(event) => handleClick(event, sampleEvent)}
+                                    sx={{
+                                        cursor: "pointer"
+                                    }}
+                                >
+                                    {columns.map((column) => {
+                                        const value = row[column.id];
+                                        return (
+                                            <TableCell key={column.id}>
+                                                {value}
+                                            </TableCell>
+                                        );
+                                    })}
+                                </TableRow>
+                            ))}
                     </TableBody>
                 </Table>
             </TableContainer>
@@ -80,6 +112,18 @@ export default function ParticipantsTable({ data }) {
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
+            <Popover
+                id={popoverId}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+            >
+                {selectedEvent && <OrganizerEventCard event={selectedEvent} />}
+            </Popover>
         </Paper>
     );
 }
