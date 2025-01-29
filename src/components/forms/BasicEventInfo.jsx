@@ -10,8 +10,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import OutlinedInputComponent from './form-components/OutlinedInputComponent';
+import ControlledOutlinedInput from './form-components/ControlledOutlinedInput';
 import { DevTool } from '@hookform/devtools';
+import ControlledSelect from './form-components/SelectComponent';
 
 const FormGrid = styled(Grid)(() => ({
   display: 'flex',
@@ -21,7 +22,7 @@ const FormGrid = styled(Grid)(() => ({
 export default function BasicEventInfo() {
 
   const [eventType, setEventType] = React.useState("");
-  const {methods, control} = useForm();
+  const { methods, control } = useForm();
 
   const handleChange = (event) => {
     setEventType(event.target.value);
@@ -34,7 +35,7 @@ export default function BasicEventInfo() {
           <FormLabel htmlFor="first-name" required>
             Event name
           </FormLabel>
-          <OutlinedInputComponent
+          <ControlledOutlinedInput
             name="first-name"
             placeholder="John"
             control={control}
@@ -42,25 +43,23 @@ export default function BasicEventInfo() {
         </FormGrid>
         <FormGrid size={{ xs: 12, md: 6 }}>
           <FormLabel htmlFor="event-type">Event Type</FormLabel>
-          <Select
-            labelId="event-type"
-            value={eventType}
-            onChange={handleChange}
-            displayEmpty
+          <ControlledSelect
+            name="eventType"
+            control={control}
             placeholder="Select Event Type"
-            size='small'
-          >
-            <MenuItem value="conference">Conference</MenuItem>
-            <MenuItem value="wedding">Wedding</MenuItem>
-            <MenuItem value="party">Party</MenuItem>
-            <MenuItem value="meetup">Meetup</MenuItem>
-          </Select>
+            options={[
+              { value: "conference", label: "Conference" },
+              { value: "wedding", label: "Wedding" },
+              { value: "party", label: "Party" },
+              { value: "meetup", label: "Meetup" },
+            ]}
+          />
         </FormGrid>
         <FormGrid size={{ xs: 12 }}>
           <FormLabel htmlFor="tagline" required>
             Tagline
           </FormLabel>
-          <OutlinedInputComponent
+          <ControlledOutlinedInput
             name="tagline"
             placeholder="tagline"
             control={control}
@@ -68,7 +67,7 @@ export default function BasicEventInfo() {
         </FormGrid>
         <FormGrid size={{ xs: 12 }}>
           <FormLabel htmlFor="description">Description</FormLabel>
-          <OutlinedInputComponent
+          <ControlledOutlinedInput
             name="description"
             placeholder="description"
             control={control}
@@ -78,7 +77,7 @@ export default function BasicEventInfo() {
           <FormLabel htmlFor="city" required>
             City
           </FormLabel>
-          <OutlinedInputComponent
+          <ControlledOutlinedInput
             name="city"
             placeholder="New York"
             control={control}
@@ -88,7 +87,7 @@ export default function BasicEventInfo() {
           <FormLabel htmlFor="state" required>
             State
           </FormLabel>
-          <OutlinedInputComponent
+          <ControlledOutlinedInput
             name="state"
             placeholder="NY"
             control={control}
@@ -98,7 +97,7 @@ export default function BasicEventInfo() {
           <FormLabel htmlFor="zip" required>
             Zip / Postal code
           </FormLabel>
-          <OutlinedInputComponent
+          <ControlledOutlinedInput
             name="zip"
             placeholder="12345"
             control={control}
@@ -108,7 +107,7 @@ export default function BasicEventInfo() {
           <FormLabel htmlFor="country" required>
             Country
           </FormLabel>
-          <OutlinedInputComponent
+          <ControlledOutlinedInput
             name="country"
             placeholder="United States"
             control={control}

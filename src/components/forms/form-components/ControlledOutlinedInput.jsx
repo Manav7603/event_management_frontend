@@ -1,8 +1,8 @@
 import React from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
-import { Controller, useForm, useFormContext } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
-const OutlinedInputComponent = ({ name, control, placeholder }) => {
+const ControlledOutlinedInput = ({ name, control, placeholder }) => {
 
     return (
         <Controller
@@ -30,4 +30,4 @@ const OutlinedInputComponent = ({ name, control, placeholder }) => {
     )
 };
 
-export default OutlinedInputComponent;
+export default ControlledOutlinedInput;
