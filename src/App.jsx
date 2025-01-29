@@ -13,7 +13,7 @@ import ParticipantsTable from "./components/tables/ParticipantsTable";
 import OrganizerParticipantsList from "./components/organizer-dashboard/OrganizerParticipantsList";
 import BasicPopover from "./components/BasicPopover";
 import LoginPage from './components/pages/LoginPage';
-
+import PersonalInfoPopover from './components/PersonalInfoPopover';
 import SignupPage from "./components/pages/SignupPage";
 // import LoginPage from "./pages/LoginPage"
 
@@ -40,6 +40,7 @@ function App() {
             <Route path="/all" element={<OrganizerParticipantsList />} />
             <Route path="/tooltip" element={<BasicPopover />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/pop" element={<PersonalInfoPopover />} />
             <Route path="/signup" element={<SignupPage />} />
           </Routes>
         </BrowserRouter>
