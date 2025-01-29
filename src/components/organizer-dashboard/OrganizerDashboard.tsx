@@ -18,7 +18,7 @@ import Events from "./Events";
 import NewEventForm from "../forms/NewEventForm";
 import Modal from "@mui/material/Modal";
 import OrganizerParticipantsList from "./OrganizerParticipantsList";
-
+import SignupForm from "../SignUp/SignupForm";
 const style = {
   position: 'absolute',
   top: '50%',

@@ -12,6 +12,11 @@ import NewEventForm from "./components/forms/NewEventForm";
 import ParticipantsTable from "./components/tables/ParticipantsTable";
 import OrganizerParticipantsList from "./components/organizer-dashboard/OrganizerParticipantsList";
 import BasicPopover from "./components/BasicPopover";
+import LoginPage from './components/pages/LoginPage';
+
+import SignupPage from "./components/pages/SignupPage";
+// import LoginPage from "./pages/LoginPage"
+
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -34,6 +39,8 @@ function App() {
             <Route path="/table" element={<ParticipantsTable />} />
             <Route path="/all" element={<OrganizerParticipantsList />} />
             <Route path="/tooltip" element={<BasicPopover />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
