@@ -17,6 +17,7 @@ import LoginPage from './components/pages/LoginPage';
 import SignupPage from "./components/pages/SignupPage";
 // import LoginPage from "./pages/LoginPage"
 
+import EventCard from "./components/forms/EventCard";
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -41,6 +42,7 @@ function App() {
             <Route path="/tooltip" element={<BasicPopover />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
+            <Route path="/card" element={<EventCard />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
