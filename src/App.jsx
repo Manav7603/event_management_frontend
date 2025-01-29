@@ -12,6 +12,7 @@ import NewEventForm from "./components/forms/NewEventForm";
 import ParticipantsTable from "./components/tables/ParticipantsTable";
 import OrganizerParticipantsList from "./components/organizer-dashboard/OrganizerParticipantsList";
 import BasicPopover from "./components/BasicPopover";
+import EventCard from "./components/forms/EventCard";
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -34,6 +35,7 @@ function App() {
             <Route path="/table" element={<ParticipantsTable />} />
             <Route path="/all" element={<OrganizerParticipantsList />} />
             <Route path="/tooltip" element={<BasicPopover />} />
+            <Route path="/card" element={<EventCard />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
