@@ -164,11 +164,16 @@ export default function OrganizerDashboard() {
   return (
     <>
       <CssBaseline />
-      <AppProvider navigation={NAVIGATION} router={router} theme={demoTheme}>
-        <DashboardLayout>
-          <DemoPageContent pathname={router.pathname} />
-        </DashboardLayout>
-      </AppProvider>
+      <AppProvider
+        branding={{ title: "", homeUrl: "http://localhost:5173/organizer-dashboard", logo: <img src='src/assets/2.png' /> }}
+        navigation={NAVIGATION}
+        router={router}
+        theme={demoTheme}
+      >
+      <DashboardLayout>
+        <DemoPageContent pathname={router.pathname} />
+      </DashboardLayout>
+    </AppProvider >
     </>
   );
 }

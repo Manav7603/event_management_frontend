@@ -1,42 +1,32 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid2';
-import Select from "@mui/material/Select";
+import { DevTool } from '@hookform/devtools';
 import { styled } from '@mui/material/styles';
-import MenuItem from "@mui/material/MenuItem";
-import { useForm, FormProvider } from 'react-hook-form';
 import FormLabel from '@mui/material/FormLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
+
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import ControlledSelect from './form-components/ControlledSelect';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import ControlledOutlinedInput from './form-components/ControlledOutlinedInput';
-import { DevTool } from '@hookform/devtools';
-import ControlledSelect from './form-components/ControlledSelect';
+import ControlledDateTimePicker from './form-components/ControlledDateTimePicker';
 
 const FormGrid = styled(Grid)(() => ({
   display: 'flex',
   flexDirection: 'column',
 }));
 
-export default function BasicEventInfo() {
-
-  const [eventType, setEventType] = React.useState("");
-  const { methods, control } = useForm();
-
-  const handleChange = (event) => {
-    setEventType(event.target.value);
-  };
+export default function BasicEventInfo({ control }) {
 
   return (
-    <FormProvider {...methods} >
+    <>
       <Grid container spacing={3}>
         <FormGrid size={{ xs: 12, md: 6 }}>
           <FormLabel htmlFor="first-name" required>
             Event name
           </FormLabel>
           <ControlledOutlinedInput
-            name="first-name"
+            name="firstName"
             placeholder="John"
             control={control}
           />
@@ -119,7 +109,7 @@ export default function BasicEventInfo() {
           </FormLabel>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={['DateTimePicker']}>
-              <DateTimePicker label="start time" />
+              <ControlledDateTimePicker control={control} name="startDate" label="start time" />
             </DemoContainer>
           </LocalizationProvider>
         </FormGrid>
@@ -129,12 +119,12 @@ export default function BasicEventInfo() {
           </FormLabel>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={['DateTimePicker']}>
-              <DateTimePicker label="end time" />
+              <ControlledDateTimePicker control={control} name="endDate" label="end time" />
             </DemoContainer>
           </LocalizationProvider>
         </FormGrid>
       </Grid>
       <DevTool control={control} />
-    </FormProvider>
+    </>
   );
 }
