@@ -12,7 +12,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import ControlledOutlinedInput from './form-components/ControlledOutlinedInput';
 import { DevTool } from '@hookform/devtools';
-import ControlledSelect from './form-components/SelectComponent';
+import ControlledSelect from './form-components/ControlledSelect';
 
 const FormGrid = styled(Grid)(() => ({
   display: 'flex',
