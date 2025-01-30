@@ -1,6 +1,6 @@
 import React from "react";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import { Controller } from "react-hook-form";
+import OutlinedInput from "@mui/material/OutlinedInput";
 
 const ControlledOutlinedInput = ({ name, control, placeholder }) => {
 

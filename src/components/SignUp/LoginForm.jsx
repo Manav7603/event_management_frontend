@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { TextField, Button, Typography, Box, Card, CardContent, Divider } from "@mui/material";
-import { auth, googleProvider, githubProvider } from "../Dependency/firebase";
+import { auth, googleProvider, githubProvider } from "../dependency/firebase";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import GoogleIcon from "@mui/icons-material/Google";
 import GitHubIcon from "@mui/icons-material/GitHub";

@@ -4,7 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import OrganizerEventCard from '../cards/OrganizerEventCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { useGetEventsQuery } from '../../services/backendAPI';
-import { setEvents } from '../../store/eventsSlice';
+import { setEvents } from '../../store/slices/eventsSlice';
 
 const Events = ({ type }) => {
     console.log("type inner -> ", type);

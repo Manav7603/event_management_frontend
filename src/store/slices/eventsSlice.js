@@ -10,7 +10,6 @@ const eventsSlice = createSlice({
     reducers: {
         setEvents: (state, action) => {
             state.events = action.payload.events;
-            console.log("Events state updated in redux");
         }
     }
 })

@@ -6,8 +6,7 @@ import {
   CardMedia,
   Typography,
   Button,
-  Grid,
-  Paper,
+  Paper
 } from "@mui/material";
 
 export default function OrganizerEventCard({ event }) {

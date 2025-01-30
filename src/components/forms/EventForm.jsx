@@ -1,25 +1,24 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid2';
-import Stack from '@mui/material/Stack';
 import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
+import Grid from '@mui/material/Grid2';
+import Card from '@mui/material/Card';
+import Stack from '@mui/material/Stack';
+import TicketInfo from './TicketInfoForm';
+import { useDispatch } from 'react-redux';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router';
+import EventCard from '../cards/EventCard';
 import Stepper from '@mui/material/Stepper';
+import BasicEventInfo from './EventInfoForm';
+import StepLabel from '@mui/material/StepLabel';
 import Typography from '@mui/material/Typography';
+import CssBaseline from '@mui/material/CssBaseline';
+import CardContent from '@mui/material/CardContent';
+import { useForm, FormProvider } from 'react-hook-form';
+import { setBasicFormInfo, setTicketInfo } from '../../store/slices/formSlice';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
-import { useForm, FormProvider } from 'react-hook-form';
-import Review from './Review';
-import TicketInfo from './TicketInfo';
-import BasicEventInfo from './BasicEventInfo';
-import { useNavigate } from 'react-router';
-import { useDispatch } from 'react-redux';
-import { setBasicFormInfo, setTicketInfo } from '../../store/formSlice';
-import EventCard from './EventCard';
 
 const steps = ['Event Information', 'Ticket Information', 'Review Event'];
 function getStepContent(step, control) {
@@ -40,7 +39,7 @@ export default function NewEventForm(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleNext = () => {
-    if(activeStep === 0){
+    if (activeStep === 0) {
       const data = getValues();
       data.startDate = data.startDate.$d.toString();;
       data.endDate = data.endDate.$d.toString();;
@@ -50,7 +49,7 @@ export default function NewEventForm(props) {
           { basicEventInfo: data }
         )
       )
-    }else if(activeStep === 1){
+    } else if (activeStep === 1) {
       const { eventMode, numberOfTickets, organizerContactInfo, organizerName, ticketType, ticketPrice } = getValues();
       const data = { eventMode, ticketType, numberOfTickets, organizerContactInfo, organizerName, ticketPrice };
       console.log("second", data)
@@ -66,7 +65,6 @@ export default function NewEventForm(props) {
     setActiveStep(activeStep - 1);
   };
   return (
-    // <AppTheme {...props}>
     <>
       <CssBaseline enableColorScheme />
       <FormProvider {...methods} >

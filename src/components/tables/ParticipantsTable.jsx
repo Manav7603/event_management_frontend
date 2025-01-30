@@ -1,14 +1,15 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
+import Popover from '@mui/material/Popover';
+import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import Popover from '@mui/material/Popover';
 import UserInfoCard from '../cards/UserInfoCard';
+import TableContainer from '@mui/material/TableContainer';
+import TablePagination from '@mui/material/TablePagination';
 
 const columns = [
     { id: 'name', label: 'Name', minWidth: 170 },
@@ -24,20 +25,19 @@ function createData(name, age, gender, attended) {
 export default function ParticipantsTable({ data }) {
     const rows = data.map((entry) => createData(entry.name, entry.age, entry.gender, entry.attended));
 
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [selectedEvent, setSelectedEvent] = React.useState(null);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [selectedEvent, setSelectedEvent] = useState(null);
 
     const handleClick = (event, eventData) => {
-        setAnchorEl(event.currentTarget); // Set the anchor element
-        setSelectedEvent(eventData); // Set the event data for Popover
+        setAnchorEl(event.currentTarget);
+        setSelectedEvent(eventData);
     };
 
     const handleClose = () => {
-        setAnchorEl(null); // Reset the anchor element
-        setSelectedEvent(null); // Reset selected event
+        setAnchorEl(null);
+        setSelectedEvent(null);
     };
 
     const open = Boolean(anchorEl);
@@ -122,7 +122,7 @@ export default function ParticipantsTable({ data }) {
                     horizontal: 'left',
                 }}
             >
-                {selectedEvent && <UserInfoCard  />}
+                {selectedEvent && <UserInfoCard />}
             </Popover>
         </Paper>
     );

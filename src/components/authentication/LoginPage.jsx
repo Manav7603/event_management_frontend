@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { ThemeProvider, CssBaseline, Container } from "@mui/material";
-import { getTheme } from "../Dependency/theme";
-import Header from "../SignUp/Header";
-import LoginForm from "../SignUp/LoginForm";
+import { getTheme } from "../dependency/theme";
+import Header from "../signup/Header";
+import LoginForm from "../signup/LoginForm";
 
 const LoginPage = () => {
   const [darkMode, setDarkMode] = useState(false);

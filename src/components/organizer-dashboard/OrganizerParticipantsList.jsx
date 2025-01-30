@@ -7,7 +7,7 @@ import ParticipantsTable from '../tables/ParticipantsTable';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetParticipantsQuery } from '../../services/backendAPI';
-import { setParticipants } from '../../store/participantsSlice';
+import { setParticipants } from '../../store/slices/participantsSlice';
 
 // const Root = styled('div')(({ theme }) => ({
 //     width: '100%',

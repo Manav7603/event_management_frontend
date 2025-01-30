@@ -1,10 +1,10 @@
-import authReducer from './authSlice';
-import formReducer from './formSlice';
-import themeReducer from './themeSlice';
-import eventsReducer from './eventsSlice'
-import participantsReducer from './participantsSlice'
+import authReducer from './slices/authSlice';
+import formReducer from './slices/formSlice';
+import themeReducer from './slices/themeSlice';
+import eventsReducer from './slices/eventsSlice';
 import { configureStore } from '@reduxjs/toolkit';
 import { backendAPI } from '../services/backendAPI';
+import participantsReducer from './slices/participantsSlice';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
 const store = configureStore({

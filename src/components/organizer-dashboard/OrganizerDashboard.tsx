@@ -1,35 +1,20 @@
+import Events from "./Events";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import { createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import FeedbackIcon from "@mui/icons-material/Feedback";
-import EventIcon from "@mui/icons-material/Event";
 import AddIcon from "@mui/icons-material/Add";
-import { AppProvider, type Navigation } from "@toolpad/core/AppProvider";
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import { DashboardLayout } from "@toolpad/core/DashboardLayout";
+import NewEventForm from "../forms/EventForm";
+import Typography from "@mui/material/Typography";
+import EventIcon from "@mui/icons-material/Event";
+import { createTheme } from "@mui/material/styles";
 import { useDemoRouter } from "@toolpad/core/internal";
-import OrganizerEventCard from "../cards/OrganizerEventCard";
-import Events from "./Events";
-import NewEventForm from "../forms/NewEventForm";
-import Modal from "@mui/material/Modal";
+import FeedbackIcon from "@mui/icons-material/Feedback";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import OrganizerParticipantsList from "./OrganizerParticipantsList";
-import SignupForm from "../SignUp/SignupForm";
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 'auto',
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+import { AppProvider, type Navigation } from "@toolpad/core/AppProvider";
 
 const NAVIGATION: Navigation = [
   {
@@ -125,7 +110,7 @@ const demoTheme = createTheme({
 
 function DemoPageContent({ pathname }: { pathname: string }) {
   const renderContent = () => {
-    console.log("Pathname -> ", pathname)
+    
     switch (pathname) {
       case "/dashboard":
         return <Typography variant="h4">Welcome to the Dashboard</Typography>;
@@ -165,7 +150,7 @@ export default function OrganizerDashboard() {
     <>
       <CssBaseline />
       <AppProvider
-        branding={{ title: "", homeUrl: "http://localhost:5173/organizer-dashboard", logo: <img src='src/assets/2.png' /> }}
+        branding={{ title: "", homeUrl: "http://localhost:5173/organizer-dashboard", logo: <img src='src/assets/logo-name.png' /> }}
         navigation={NAVIGATION}
         router={router}
         theme={demoTheme}

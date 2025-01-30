@@ -1,22 +1,14 @@
 import React from "react";
-import { Controller, useController } from "react-hook-form";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
+import FormHelperText from "@mui/material/FormHelperText";
+import { Controller, useController } from "react-hook-form";
 
 const ControlledSelect = ({ name, control, options, onChange, placeholder, size = "small" }) => {
-
     const {
         field: { value, onChange: fieldOnChange },
-      } = useController({ name, control });
-
-    const handleChange = (e) => {
-        fieldOnChange(e);
-        if (onChange) {
-          onChange(e.target.value);
-        }
-      };
+    } = useController({ name, control });
 
     return (
         <Controller

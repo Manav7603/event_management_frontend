@@ -29,11 +29,9 @@ const formSlice = createSlice({
     reducers: {
         setBasicFormInfo: (state, action) => {
             state.basicEventInfo = action.payload.basicEventInfo;
-            console.log("Basic event info updated in redux -> ", state.basicEventInfo);
         },
         setTicketInfo: (state, action) => {
             state.ticketInfo = action.payload.ticketInfo;
-            console.log("Ticket info updated in redux -> ",state.ticketInfo);
         }
     }
 });
