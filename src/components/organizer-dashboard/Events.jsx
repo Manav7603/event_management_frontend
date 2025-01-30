@@ -2,25 +2,38 @@ import * as React from 'react';
 import { Box } from '@mui/material';
 import InfiniteScroll from "react-infinite-scroll-component";
 import OrganizerEventCard from '../cards/OrganizerEventCard';
-import events from './eventsArray';
+import { useSelector, useDispatch } from 'react-redux';
+import { useGetEventsQuery } from '../../services/backendAPI';
+import { setEvents } from '../../store/eventsSlice';
 
 const Events = ({ type }) => {
     console.log("type inner -> ", type);
 
-    // Filter events based on the type
+    const dispatch = useDispatch();
+    const events = useSelector(state => state.events.events);
+
+    const { data, error, isLoading } = useGetEventsQuery();
+
     const [filteredEvents, setFilteredEvents] = React.useState([]);
     const [visibleEvents, setVisibleEvents] = React.useState([]);
     const [hasMore, setHasMore] = React.useState(true);
 
     React.useEffect(() => {
-        const filtered = events.filter(event => {
-            if (type === "all-events") return true;
-            return event.status === type;
-        });
-        setFilteredEvents(filtered);
-        setVisibleEvents(filtered.slice(0, 9));
-        setHasMore(filtered.length > 9);
-    }, [type]);
+        if (!events?.length && data) {
+            dispatch(setEvents({events: data}));
+        }
+        console.log(data)
+    }, [data, events, dispatch]);
+
+    React.useEffect(() => {
+        if (events && events.length > 0) {
+            const filtered = events.filter(event => (type === "all-events" ? true : event.status === type));
+            setFilteredEvents(filtered);
+            console.log(filtered)
+            setVisibleEvents(filtered.slice(0, 9));
+            setHasMore(filtered.length > 9);
+        }
+    }, [events, type]);
 
     const loadMoreEvents = () => {
         if (visibleEvents.length >= filteredEvents.length) {
@@ -28,12 +41,12 @@ const Events = ({ type }) => {
             return;
         }
         setTimeout(() => {
-            setVisibleEvents((prev) => [
-                ...prev,
-                ...filteredEvents.slice(prev.length, prev.length + 9),
-            ]);
+            setVisibleEvents(prev => [...prev, ...filteredEvents.slice(prev.length, prev.length + 9)]);
         }, 1500);
     };
+
+    if (isLoading) return <h4>Loading events...</h4>;
+    if (error) return <p>Error loading events. </p>;
 
     return (
         <InfiniteScroll
@@ -54,12 +67,12 @@ const Events = ({ type }) => {
                     p: 2,
                 }}
             >
-                {visibleEvents.map((event) => (
+                {visibleEvents.map(event => (
                     <OrganizerEventCard key={event.id} event={event} />
                 ))}
             </Box>
         </InfiniteScroll>
     );
-}
+};
 
 export default Events;
