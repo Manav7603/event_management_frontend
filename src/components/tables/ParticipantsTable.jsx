@@ -8,7 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Popover from '@mui/material/Popover';
-import OrganizerEventCard from '../cards/OrganizerEventCard';
+import UserInfoCard from '../cards/UserInfoCard';
 
 const columns = [
     { id: 'name', label: 'Name', minWidth: 170 },
@@ -122,7 +122,7 @@ export default function ParticipantsTable({ data }) {
                     horizontal: 'left',
                 }}
             >
-                {selectedEvent && <OrganizerEventCard event={selectedEvent} />}
+                {selectedEvent && <UserInfoCard  />}
             </Popover>
         </Paper>
     );
