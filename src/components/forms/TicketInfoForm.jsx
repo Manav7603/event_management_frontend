@@ -11,7 +11,7 @@ const FormGrid = styled(Grid)(() => ({
     flexDirection: 'column',
 }));
 
-export default function TicketInfo({ control }) {
+export default function TicketInfo({ control, errors }) {
 
     const [ticketType, setTicketType] = useState("");
 

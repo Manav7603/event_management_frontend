@@ -21,21 +21,21 @@ import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 
 const steps = ['Event Information', 'Ticket Information', 'Review Event'];
-function getStepContent(step, control) {
+function getStepContent(step, control, errors) {
   switch (step) {
     case 0:
-      return <BasicEventInfo control={control} />;
+      return <BasicEventInfo errors={errors} control={control} />;
     case 1:
-      return <TicketInfo control={control} />;
+      return <TicketInfo errors={errors} control={control} />;
     case 2:
-      return <EventCard control={control} />;
+      return <EventCard errors={errors} control={control} />;
     default:
       throw new Error('Unknown step');
   }
 }
 export default function NewEventForm(props) {
   const [activeStep, setActiveStep] = React.useState(0);
-  const { methods, control, getValues } = useForm();
+  const { methods, control, getValues, formState: { errors } } = useForm({ mode: "onBlur" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleNext = () => {
@@ -191,7 +191,7 @@ export default function NewEventForm(props) {
               </Stack>
             ) : (
               <React.Fragment>
-                {getStepContent(activeStep, control)}
+                {getStepContent(activeStep, control, errors)}
                 <Box
                   sx={[
                     {

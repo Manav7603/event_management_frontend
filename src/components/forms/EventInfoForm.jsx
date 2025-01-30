@@ -15,8 +15,8 @@ const FormGrid = styled(Grid)(() => ({
   flexDirection: 'column',
 }));
 
-export default function BasicEventInfo({ control }) {
-
+export default function BasicEventInfo({ control, errors }) {
+  console.log("errors -> ", errors)
   return (
     <>
       <Grid container spacing={3}>
@@ -25,10 +25,11 @@ export default function BasicEventInfo({ control }) {
             Event name
           </FormLabel>
           <ControlledOutlinedInput
-            name="firstName"
+            name="eventName"
             placeholder="John"
             control={control}
           />
+        {errors.eventName && <span style={{ color: "red", fontSize: "12px" }}>{errors.eventName.message}</span>}
         </FormGrid>
         <FormGrid size={{ xs: 12, md: 6 }}>
           <FormLabel htmlFor="event-type">Event Type</FormLabel>
@@ -43,6 +44,7 @@ export default function BasicEventInfo({ control }) {
               { value: "meetup", label: "Meetup" },
             ]}
           />
+          {errors.eventType && <span style={{ color: "red", fontSize: "12px" }}>{errors.eventType.message}</span>}
         </FormGrid>
         <FormGrid size={{ xs: 12 }}>
           <FormLabel htmlFor="tagline" required>
@@ -53,6 +55,7 @@ export default function BasicEventInfo({ control }) {
             placeholder="tagline"
             control={control}
           />
+          {errors.tagline && <span style={{ color: "red", fontSize: "12px" }}>{errors.tagline.message}</span>}
         </FormGrid>
         <FormGrid size={{ xs: 12 }}>
           <FormLabel htmlFor="description">Description</FormLabel>
@@ -61,6 +64,7 @@ export default function BasicEventInfo({ control }) {
             placeholder="description"
             control={control}
           />
+          {errors.description && <span style={{ color: "red", fontSize: "12px" }}>{errors.description.message}</span>}
         </FormGrid>
         <FormGrid size={{ xs: 6 }}>
           <FormLabel htmlFor="city" required>
@@ -71,6 +75,7 @@ export default function BasicEventInfo({ control }) {
             placeholder="New York"
             control={control}
           />
+          {errors.city && <span style={{ color: "red", fontSize: "12px" }}>{errors.city.message}</span>}
         </FormGrid>
         <FormGrid size={{ xs: 6 }}>
           <FormLabel htmlFor="state" required>
@@ -81,6 +86,7 @@ export default function BasicEventInfo({ control }) {
             placeholder="NY"
             control={control}
           />
+          {errors.state && <span style={{ color: "red", fontSize: "12px" }}>{errors.state.message}</span>}
         </FormGrid>
         <FormGrid size={{ xs: 6 }}>
           <FormLabel htmlFor="zip" required>
@@ -91,6 +97,7 @@ export default function BasicEventInfo({ control }) {
             placeholder="12345"
             control={control}
           />
+          {errors.zip && <span style={{ color: "red", fontSize: "12px" }}>{errors.zip.message}</span>}
         </FormGrid>
         <FormGrid size={{ xs: 6 }}>
           <FormLabel htmlFor="country" required>
@@ -101,6 +108,7 @@ export default function BasicEventInfo({ control }) {
             placeholder="United States"
             control={control}
           />
+          {errors.country && <span style={{ color: "red", fontSize: "12px" }}>{errors.country.message}</span>}
         </FormGrid>
         <FormGrid size={{ xs: 6 }}>
           <FormLabel htmlFor="country" required>
@@ -111,6 +119,8 @@ export default function BasicEventInfo({ control }) {
               <ControlledDateTimePicker control={control} name="startDate" label="start time" />
             </DemoContainer>
           </LocalizationProvider>
+          {console.log(errors.startDate)}
+          {errors.startDate && <span style={{ color: "red", fontSize: "12px" }}>{errors.startDate.message}</span>}
         </FormGrid>
         <FormGrid size={{ xs: 6 }}>
           <FormLabel htmlFor="country" required>
@@ -121,6 +131,8 @@ export default function BasicEventInfo({ control }) {
               <ControlledDateTimePicker control={control} name="endDate" label="end time" />
             </DemoContainer>
           </LocalizationProvider>
+          
+          {errors.endDate && <span style={{ color: "red", fontSize: "12px" }}>{errors.endDate.message}</span>}
         </FormGrid>
       </Grid>
       <DevTool control={control} />
