@@ -29,6 +29,7 @@ export default function TicketInfo({ control, errors }) {
                         { value: "hybrid", label: "Hybrid" }
                     ]}
                 />
+                {errors.eventMode && <span style={{ color: "red", fontSize: "12px" }}>{errors.eventMode.message}</span>}
             </FormGrid>
 
             {/* Ticketing Options Section */}
@@ -46,6 +47,7 @@ export default function TicketInfo({ control, errors }) {
                         { value: "paid", label: "Paid" }
                     ]}
                 />
+                {errors.ticketType && <span style={{ color: "red", fontSize: "12px" }}>{errors.ticketType.message}</span>}
             </FormGrid>
 
             {ticketType === "paid" && (
@@ -58,6 +60,7 @@ export default function TicketInfo({ control, errors }) {
                         control={control}
                         placeholder="Price"
                     />
+                    {errors.ticketPrice && <span style={{ color: "red", fontSize: "12px" }}>{errors.ticketPrice.message}</span>}
                 </FormGrid>
             )}
 
@@ -70,6 +73,7 @@ export default function TicketInfo({ control, errors }) {
                     control={control}
                     placeholder="Max tickets"
                 />
+                {errors.numberOfTickets && <span style={{ color: "red", fontSize: "12px" }}>{errors.numberOfTickets.message}</span>}
             </FormGrid>
 
             <FormGrid size={{ xs: 6 }}>
@@ -81,6 +85,7 @@ export default function TicketInfo({ control, errors }) {
                     control={control}
                     placeholder="Organizer Name"
                 />
+                {errors.organizerName && <span style={{ color: "red", fontSize: "12px" }}>{errors.organizerName.message}</span>}
             </FormGrid>
 
             <FormGrid size={{ xs: 6 }}>
@@ -92,6 +97,7 @@ export default function TicketInfo({ control, errors }) {
                     control={control}
                     placeholder="Phone & Email"
                 />
+                {errors.organizerContactInfo && <span style={{ color: "red", fontSize: "12px" }}>{errors.organizerContactInfo.message}</span>}
             </FormGrid>
         </Grid>
     );

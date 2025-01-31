@@ -15,7 +15,7 @@ const EventCard = ({ control }) => {
         <Card sx={{ maxWidth: 500, m: 2, boxShadow: 3, borderRadius: 2 }}>
             <CardContent>
                 <Typography variant="h5" gutterBottom>
-                    {event.firstName} - {event.eventType}
+                    {event.eventName} - {event.eventType}
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary">
                     "{event.tagline}"
