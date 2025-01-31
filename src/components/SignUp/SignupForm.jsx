@@ -6,14 +6,26 @@ import PasswordStrengthMeter from "./PasswordStrengthMeter";
 import GoogleIcon from "@mui/icons-material/Google";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import { useNavigate } from "react-router-dom";
-import { sendEmailVerification } from "firebase/auth"; // Import sendEmailVerification
+import { sendEmailVerification } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { setAuthType } from "../../store/slices/authSlice";
+import { login } from "../../store/slices/authSlice";
+import { useDemoRouter } from "@toolpad/core/internal";
 
-const SignupForm = ({ onSignIn }) => {
+const SignupForm = ({ onSignIn, router }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
-  const navigate = useNavigate(); // For navigation after signup
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // const router = useDemoRouter();
+
+  const handleLoginClick = () => {
+    dispatch(
+      setAuthType({ authType: "login" })
+    )
+  }
   
   const handleSignup = async () => {
     if (password !== confirmPassword) {
@@ -22,16 +34,16 @@ const SignupForm = ({ onSignIn }) => {
     }
 
     try {
-      // Create a user with email and password
+
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Send email verification
-      await sendEmailVerification(user); // Send the verification email
+      await sendEmailVerification(user);
 
       setMessage("Signed up successfully! Please check your inbox for a verification email.");
       onSignIn();
-      navigate("/login"); // Redirect to login page after signup
+      dispatch(login({isAuthenticated: true}))
+      router.navigate("/dashboard");
     } catch (error) {
       setMessage(error.message);
     }
@@ -41,8 +53,9 @@ const SignupForm = ({ onSignIn }) => {
     try {
       await signInWithPopup(auth, provider);
       setMessage("Signed in successfully!");
-      onSignIn();
-      navigate("/login"); // Redirect to login page after social login
+      // onSignIn();
+      dispatch(login({isAuthenticated: true}))
+      router.navigate("/dashboard");
     } catch (error) {
       setMessage(error.message);
     }
@@ -54,11 +67,10 @@ const SignupForm = ({ onSignIn }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
-        width: "100vw",
+        marginTop: "10%",
       }}
     >
-      <Card sx={{ maxWidth: 400, p: 3, borderRadius: 3, boxShadow: 4 }}>
+      <Card sx={{ maxWidth: 550, p: 4, borderRadius: 3, boxShadow: 4 }}>
         <CardContent>
           <Typography variant="h5" align="center" gutterBottom sx={{ fontWeight: "bold" }}>
             Sign Up
@@ -113,7 +125,7 @@ const SignupForm = ({ onSignIn }) => {
               py: 1,
               borderRadius: 2,
             }}
-            onClick={() => navigate("/login")} // Redirect to login page
+            onClick={handleLoginClick}
           >
             Already a Member? Login...
           </Button>
