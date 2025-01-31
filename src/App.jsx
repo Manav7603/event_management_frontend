@@ -16,10 +16,7 @@ function App() {
         <CssBaseline />
         <BrowserRouter>
           <Routes>
-            <Route index element={<OrganizerDashboard />} />
-            <Route path="/organizer-dashboard" element={<OrganizerDashboard />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/" element={<OrganizerDashboard />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

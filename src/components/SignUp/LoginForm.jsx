@@ -5,18 +5,29 @@ import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import GoogleIcon from "@mui/icons-material/Google";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login, setAuthType } from "../../store/slices/authSlice";
+import { useDemoRouter } from "@toolpad/core/internal";
 
-const LoginForm = () => {
+const LoginForm = ({router}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleSignUpClick = () => {
+    dispatch(
+      setAuthType({ authType: "signup" })
+    )
+  }
 
   const handleLogin = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       setMessage("Logged in successfully!");
-      navigate("/organizer-dashboard"); // Only navigate after successful login
+      dispatch(login({isAuthenticated: true}))
+      router.navigate("/dashboard"); // Only navigate after successful login
     } catch (error) {
       setMessage(error.message);
     }
@@ -26,7 +37,8 @@ const LoginForm = () => {
     try {
       await signInWithPopup(auth, provider);
       setMessage("Logged in successfully!");
-      navigate("/dashboard"); // Only navigate after successful login
+      dispatch(login({isAuthenticated: true}))
+      router.navigate("/dashboard");
     } catch (error) {
       setMessage(error.message);
     }
@@ -38,11 +50,10 @@ const LoginForm = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
-        width: "100vw",
+        marginTop: "10%"
       }}
     >
-      <Card sx={{ maxWidth: 400, p: 3, borderRadius: 3, boxShadow: 4 }}>
+      <Card sx={{ maxWidth: 550, p: 4, borderRadius: 3, boxShadow: 4 }}>
         <CardContent>
           <Typography variant="h5" align="center" gutterBottom sx={{ fontWeight: "bold" }}>
             Log In
@@ -86,7 +97,7 @@ const LoginForm = () => {
               py: 1,
               borderRadius: 2,
             }}
-            onClick={() => navigate("/signup")} // Redirect to sign up page
+            onClick={handleSignUpClick}
           >
             Not a Member? Sign Up...
           </Button>

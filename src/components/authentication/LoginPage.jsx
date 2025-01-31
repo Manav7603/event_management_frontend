@@ -4,22 +4,20 @@ import LoginForm from "../signup/LoginForm";
 import { getTheme } from "../dependency/theme";
 import { ThemeProvider, CssBaseline, Container } from "@mui/material";
 
-const LoginPage = () => {
+const LoginPage = ({ router }) => {
   const [darkMode, setDarkMode] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
 
   return (
-    <ThemeProvider theme={getTheme(darkMode)}>
-      <CssBaseline />
-      <Header toggleTheme={() => setDarkMode(!darkMode)} darkMode={darkMode} />
+    <>
       <Container sx={{ mt: 4 }}>
         {signedIn ? (
           <h2>Logged in successfully!</h2>
         ) : (
-          <LoginForm onSignIn={() => setSignedIn(true)} />
+          <LoginForm router={router} onSignIn={() => setSignedIn(true)} />
         )}
       </Container>
-    </ThemeProvider>
+    </>
   );
 };
 

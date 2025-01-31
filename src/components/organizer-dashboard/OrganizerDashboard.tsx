@@ -15,6 +15,9 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import OrganizerParticipantsList from "./OrganizerParticipantsList";
 import { AppProvider, type Navigation } from "@toolpad/core/AppProvider";
+import SignupPage from "../authentication/SignupPage";
+import { useSelector } from "react-redux";
+import LoginPage from "../authentication/LoginPage";
 
 const NAVIGATION: Navigation = [
   {
@@ -108,23 +111,42 @@ const demoTheme = createTheme({
   },
 });
 
-function DemoPageContent({ pathname }: { pathname: string }) {
+function DemoPageContent({ pathname, authType, router, isAuthenticated }: { pathname: string, authType: any, router: any, isAuthenticated: any }) {
+  const protectedRoutes = [
+    "/dashboard",
+    "/events/all-events",
+    "/events/past-events",
+    "/events/upcoming-events",
+    "/events/ongoing-events",
+    "/participants",
+    "/order/ticket-sales",
+    "/order/refunds",
+    "/order/invoices",
+    "/create-event",
+    "/feedback-&-surveys"
+  ];
+
+  if (!isAuthenticated && protectedRoutes.includes(pathname)) {
+    router.navigate("/authentication");
+    return null;  // Prevents rendering any protected content until authenticated
+  }
+
   const renderContent = () => {
-    
     switch (pathname) {
+      case "/authentication":
+        return authType === "signup" ? <SignupPage router={router} /> : <LoginPage router={router} />;
       case "/dashboard":
-        return <Typography variant="h4">Welcome to the Dashboard</Typography>;
+        return <Typography variant="h4">Welcome to Dashboard</Typography>;
       case "/events/all-events":
         return <Events type="all-events" />;
       case "/events/past-events":
-        console.log("changed to past")
         return <Events type="completed" />;
       case "/events/upcoming-events":
         return <Events type="upcoming" />;
       case "/events/ongoing-events":
         return <Events type="ongoing" />;
       case "/participants":
-        return <Box sx={{ margin: '4rem' }} ><OrganizerParticipantsList /></Box>
+        return <Box sx={{ margin: '4rem' }}><OrganizerParticipantsList /></Box>;
       case "/order/ticket-sales":
         return <Typography variant="h4">Ticket Sales</Typography>;
       case "/order/refunds":
@@ -132,7 +154,7 @@ function DemoPageContent({ pathname }: { pathname: string }) {
       case "/order/invoices":
         return <Typography variant="h4">Invoices</Typography>;
       case "/create-event":
-        return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} ><NewEventForm /></Box>;
+        return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}><NewEventForm /></Box>;
       case "/feedback-&-surveys":
         return <Typography variant="h4">Feedback & Surveys</Typography>;
       default:
@@ -143,9 +165,17 @@ function DemoPageContent({ pathname }: { pathname: string }) {
   return <Box sx={{ p: 2 }}>{renderContent()}</Box>;
 }
 
-export default function OrganizerDashboard() {
-  const router = useDemoRouter("/dashboard");
 
+export default function OrganizerDashboard() {
+
+  const router = useDemoRouter("/authentication");
+  const authType = useSelector((state: any) => state.auth.authType)
+  const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated)
+  // router.navigate("/events/ongoing-events")
+
+  React.useEffect(() => {
+    window.history.pushState({}, "", router.pathname);
+  }, [router.pathname]);
   return (
     <>
       <CssBaseline />
@@ -155,10 +185,10 @@ export default function OrganizerDashboard() {
         router={router}
         theme={demoTheme}
       >
-      <DashboardLayout>
-        <DemoPageContent pathname={router.pathname} />
-      </DashboardLayout>
-    </AppProvider >
+        <DashboardLayout>
+          <DemoPageContent isAuthenticated={isAuthenticated} router={router} authType={authType} pathname={router.pathname} />
+        </DashboardLayout>
+      </AppProvider >
     </>
   );
 }
