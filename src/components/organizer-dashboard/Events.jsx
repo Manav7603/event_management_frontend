@@ -52,33 +52,6 @@ const Events = ({ type }) => {
 
     return (
         <Box sx={{ minHeight: 400, p: 3 }}>
-            {/* Items per Page Selector - Stylish Box */}
-            <Card sx={{ mb: 3, p: 2, boxShadow: 3, borderRadius: 2, backgroundColor: 'background.paper' }}>
-                <CardContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 2 }}>
-                    <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'text.primary' }}>
-                        Display Items:
-                    </Typography>
-                    <FormControl sx={{ minWidth: 120 }}>
-                        <InputLabel>Items per Page</InputLabel>
-                        <Select
-                            value={itemsPerPage}
-                            onChange={(e) => { setItemsPerPage(e.target.value); setCurrentPage(1); }}
-                            label="Items per Page"
-                            sx={{
-                                backgroundColor: 'background.default',
-                                borderRadius: 2,
-                                '&:hover': { backgroundColor: 'action.hover' },
-                                '& .MuiSelect-select': { padding: '10px 14px' }
-                            }}
-                        >
-                            {[3, 6, 9, 12].map(num => (
-                                <MenuItem key={num} value={num}>{num}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </CardContent>
-            </Card>
-
             {filteredEvents.length === 0 ? (
                 <Typography variant="h6" sx={{ textAlign: 'center', color: 'text.secondary' }}>
                     No events found matching your criteria
@@ -105,8 +78,26 @@ const Events = ({ type }) => {
                         ))}
                     </Box>
 
-                    {/* Pagination */}
-                    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+                    {/* Pagination & Items Per Page Selector */}
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 4, px: 3 }}>
+                        <FormControl sx={{ minWidth: 120 }}>
+                            <InputLabel>Items per Page</InputLabel>
+                            <Select
+                                value={itemsPerPage}
+                                onChange={(e) => { setItemsPerPage(e.target.value); setCurrentPage(1); }}
+                                label="Items per Page"
+                                sx={{
+                                    backgroundColor: 'background.default',
+                                    borderRadius: 2,
+                                    '&:hover': { backgroundColor: 'action.hover' },
+                                    '& .MuiSelect-select': { padding: '10px 14px' }
+                                }}
+                            >
+                                {[3, 6, 9, 12].map(num => (
+                                    <MenuItem key={num} value={num}>{num}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
                         <Pagination
                             count={Math.ceil(filteredEvents.length / itemsPerPage)}
                             page={currentPage}
