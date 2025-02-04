@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const backendAPI = createApi({
     reducerPath: "backendAPI",
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://event-management-backend-mauve.vercel.app/'"
+        baseUrl: "https://event-management-backend-mauve.vercel.app'"
     }),
     refetchOnFocus: true,
     endpoints: (builder) => ({

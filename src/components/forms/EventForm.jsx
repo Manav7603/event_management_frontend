@@ -177,7 +177,7 @@ export default function NewEventForm(props) {
             {activeStep === steps.length ? (
               <Stack spacing={2} useFlexGap>
                 <Typography variant="h1">
-                  <img src="src/assets/success-animation.gif" alt="Success Animation" />
+                  <img src="public/assets/success-animation.gif" alt="Success Animation" />
                 </Typography>
 
                 <Typography variant="h5">Event Created Successfully!</Typography>
