@@ -180,7 +180,7 @@ export default function OrganizerDashboard() {
     <>
       <CssBaseline />
       <AppProvider
-        branding={{ title: "", homeUrl: "https://event-management-frontend-lemon.vercel.app/authentication", logo: <img src='public/assets/logo-name.png' /> }}
+        branding={{ title: "", homeUrl: "https://event-management-frontend-lemon.vercel.app/authentication", logo: <img src='assets/logo-name.png' /> }}
         navigation={NAVIGATION}
         router={router}
         theme={demoTheme}
